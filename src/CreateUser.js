@@ -62,6 +62,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="text"
               className="form-control"
               id="username"
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -71,6 +72,7 @@ const CreateUser = ({ token , endpoint}) => {
               id="roles"
               className="form-select"
               defaultValue={"ROLE_STUDENT"}
+             
             >
               <option value="ROLE_ADMIN">Admin</option>
               <option value="ROLE_TEACHER">Teacher</option>
@@ -87,6 +89,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="text"
               className="form-control"
               id="firstname"
+              required
             />
           </div>
           <div className="form-group col-md-6">
@@ -96,6 +99,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="text"
               className="form-control"
               id="lastname"
+              required
             />
           </div>
         </div>
@@ -116,6 +120,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="password"
               className="form-control"
               id="inputPassword4"
+              required
             />
           </div>
         </div>
@@ -128,6 +133,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="date"
               className="form-control"
               id="birthdate"
+              required
             />
           </div>
           <div className="form-group col-md-6">
