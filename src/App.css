@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 .App-link {
@@ -35,4 +36,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+label {
+  margin-top: 8px;
+  font-weight: 600;
 }
