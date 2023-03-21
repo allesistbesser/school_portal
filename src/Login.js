@@ -67,6 +67,7 @@ const Login = ({setislogin,settoken,setendpoint,endpoint}) => {
             type="text"
             className="form-control"
             aria-describedby="emailHelp"
+            required
           />
         </div>
         <div className="mb-3">
@@ -77,6 +78,7 @@ const Login = ({setislogin,settoken,setendpoint,endpoint}) => {
             value={password || ""}
             onChange={(e) => setpassword(e.target.value)}
             className="form-control"
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary container">
