@@ -42,3 +42,17 @@ label {
   margin-top: 8px;
   font-weight: 600;
 }
+body {
+  background-image: url("./assets/93993.jpg");
+  background-repeat: repeat;
+  background-size:cover;
+  
+
+}
+
+.main {
+  display: flex;
+}
+.navbarCustom {
+  margin-bottom: 80px;
+}

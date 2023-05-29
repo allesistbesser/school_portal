@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const CreateUser = ({ token , endpoint}) => {
+const CreateUser = ({ token, endpoint }) => {
   const [user, setuser] = useState();
+  const [Error, setError] = useState()
 
   const create = async (infoUser) => {
     await axios
@@ -11,10 +12,8 @@ const CreateUser = ({ token , endpoint}) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {})
-      .catch((err) => console.log(err));
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -31,8 +30,8 @@ const CreateUser = ({ token , endpoint}) => {
         key == "zip"
       ) {
         address[key] = value;
-      } else if (key == "birthdate" && value =="") {
-        infoUser[key] ="1999-01-01"
+      } else if (key == "birthdate" && value == "") {
+        infoUser[key] = "1999-01-01"
       }
       else {
         infoUser[key] = value;
@@ -42,14 +41,22 @@ const CreateUser = ({ token , endpoint}) => {
     console.log(infoUser);
 
     await create(infoUser)
-      .then(() => {})
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => { event.target.reset(); setError("New User created");
+       setTimeout(clearError ,5000) })
+      .catch((err) => {setError(err.response.data) })
   };
 
+  const clearError = () =>{
+    setError("Enter new user")
+  }
+
+
   return (
-    <div className="container col-9 mt-5">
+    <div className="container col-9 mt-5 bg-white border border-5">
+      {Error === "New User created" ? <p class="text-info bg-dark">{Error}</p> : null}
+      {Error === "Enter new user" ? <p class="text-info bg-dark">{Error}</p> : null}
+      {Error?.message ? <p class="text-warning bg-dark">{Error?.message}</p> : null}
+      {Error?.body ? <p class="text-warning bg-dark">{Error?.body}</p> : null}
       <h2 className="text-center text-danger fw-bold fs-1 mb-5">
         <i className="bi bi-person-circle me-2" /> Create User
       </h2>
@@ -72,11 +79,12 @@ const CreateUser = ({ token , endpoint}) => {
               id="roles"
               className="form-select"
               defaultValue={"ROLE_STUDENT"}
-             
+
             >
               <option value="ROLE_ADMIN">Admin</option>
               <option value="ROLE_TEACHER">Teacher</option>
               <option value="ROLE_STUDENT">Student</option>
+              <option value="ROLE_GUARDIAN">GUARDIAN</option>
             </select>
           </div>
         </div>
@@ -120,7 +128,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="password"
               className="form-control"
               id="inputPassword4"
-              required
+
             />
           </div>
         </div>
@@ -133,7 +141,7 @@ const CreateUser = ({ token , endpoint}) => {
               type="date"
               className="form-control"
               id="birthdate"
-              required
+            // required
             />
           </div>
           <div className="form-group col-md-6">
@@ -148,6 +156,16 @@ const CreateUser = ({ token , endpoint}) => {
               <option value="MALE">Male</option>
             </select>
           </div>
+        </div>
+        <div className="form-group col-md-6">
+          <label htmlFor="photourl">Photo Url</label>
+          <input
+            name="photoUrl"
+            type="text"
+            className="form-control"
+            id="photourl"
+
+          />
         </div>
 
         <div className="row mt-5">
@@ -191,19 +209,10 @@ const CreateUser = ({ token , endpoint}) => {
         </div>
         <div className="form-group"></div>
         <button type="submit" className="btn btn-primary mt-4">
-          Sign in
+          Create
         </button>
       </form>
-      {Error?.message?.toLowerCase().includes("failed") ? (
-        <h3 className="mt-5 alert alert-danger" role="alert">
-          username or password is wrong
-        </h3>
-      ) : null}
-      {Error?.message?.toLowerCase().includes("network") ? (
-        <h3 className="mt-5 alert alert-danger" role="alert">
-          Server Error
-        </h3>
-      ) : null}
+
     </div>
   );
 };

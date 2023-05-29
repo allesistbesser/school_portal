@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Login = ({setislogin,settoken,setendpoint,endpoint}) => {
+const Login = ({setislogin,settoken,setendpoint,endpoint,setpageNumber}) => {
   
   const [user, setuser] = useState();
   const [username, setusername] = useState(sessionStorage.getItem("username1"));
@@ -18,6 +18,7 @@ const Login = ({setislogin,settoken,setendpoint,endpoint}) => {
         setuser(res.data);
         setislogin(true);
         settoken(res.data.token)
+        setpageNumber(2)
         console.log(res.data);
       });
   };
@@ -57,6 +58,7 @@ const Login = ({setislogin,settoken,setendpoint,endpoint}) => {
             className="form-control"
             value={endpoint|| ""}
             onChange={(e) => setendpoint(e.target.value)}
+            placeholder="http://localhost:8080/api"
           />
           <div className="form-text">OR</div>
           <label className="form-label">User Name</label>
